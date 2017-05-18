@@ -2,6 +2,7 @@ import {NativeModules, NativeAppEventEmitter, Platform} from 'react-native';
 
 let {Instabug} = NativeModules;
 
+if(Instabug) {
 /**
  * Instabug
  * @exports Instabug
@@ -614,3 +615,6 @@ module.exports = {
         messagesNotificationAndOthers: Instabug.messagesNotificationAndOthers
     }
 };
+} else {
+    module.exports = {};
+}
