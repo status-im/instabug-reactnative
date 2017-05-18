@@ -1,6 +1,7 @@
 import {NativeModules, NativeAppEventEmitter, DeviceEventEmitter, Platform} from "react-native";
 let {Instabug} = NativeModules;
 
+if(Instabug) {
 /**
  * Instabug
  * @exports Instabug
@@ -1098,3 +1099,6 @@ module.exports = {
         collectingDataText: Instabug.collectingDataText
     }
 };
+} else {
+    module.exports = {};
+}
