@@ -30,7 +30,7 @@ public class RNInstabugReactnativePackage implements ReactPackage {
 
     public RNInstabugReactnativePackage(String androidApplicationToken, Application androidApplication,
                                         String invocationEventValue, String primaryColor,
-                                        InstabugFloatingButtonEdge floatingButtonEdge, int offset) {
+                                        InstabugFloatingButtonEdge floatingButtonEdge, int offset, boolean introMessageEnabled) {
         this.androidApplication = androidApplication;
         this.mAndroidApplicationToken = androidApplicationToken;
 
@@ -58,6 +58,7 @@ public class RNInstabugReactnativePackage implements ReactPackage {
                 .setInvocationEvent(this.invocationEvent)
                 .setCrashReportingState(Feature.State.DISABLED)
                 .setReproStepsState(State.DISABLED)
+                .setIntroMessageEnabled(introMessageEnabled)
                 .build();
 
         Instabug.setPrimaryColor(Color.parseColor(primaryColor));
@@ -69,7 +70,7 @@ public class RNInstabugReactnativePackage implements ReactPackage {
     public RNInstabugReactnativePackage(String androidApplicationToken, Application androidApplication,
                                         String invocationEventValue, String primaryColor) {
         new RNInstabugReactnativePackage(androidApplicationToken,androidApplication,invocationEventValue,primaryColor,
-                InstabugFloatingButtonEdge.LEFT,250);
+                InstabugFloatingButtonEdge.LEFT,250,false);
     }
 
     public static class Builder {
@@ -81,6 +82,7 @@ public class RNInstabugReactnativePackage implements ReactPackage {
         Application application;
         String invocationEvent;
         String primaryColor;
+        Boolean introMessageEnabled;
         InstabugFloatingButtonEdge floatingButtonEdge;
         int offset;
 
@@ -109,8 +111,13 @@ public class RNInstabugReactnativePackage implements ReactPackage {
             return this;
         }
 
+        public Builder setIntroMessageEnabled(boolean enabled) {
+            this.introMessageEnabled = enabled;
+            return this;
+        }
+
         public RNInstabugReactnativePackage build() {
-            return new RNInstabugReactnativePackage(androidApplicationToken,application,invocationEvent,primaryColor,floatingButtonEdge,offset);
+            return new RNInstabugReactnativePackage(androidApplicationToken,application,invocationEvent,primaryColor,floatingButtonEdge,offset,introMessageEnabled);
         }
 
         private InstabugFloatingButtonEdge getFloatingButtonEdge(String floatingButtonEdgeValue) {
